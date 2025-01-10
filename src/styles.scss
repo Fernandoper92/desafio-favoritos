@@ -1,9 +1,12 @@
+@import "./app/shared/scss/variables.scss";
+
 * {
   font-family: Poppins, sans-serif;
 }
 
 p {
   margin: 0;
+  font-size: $font-size-text;
 }
 
 body {

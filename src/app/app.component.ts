@@ -5,6 +5,7 @@ import { FavoritesService } from './core/services/favorites.service';
 
 @Component({
   selector: 'app-root',
+  // TODO: transformar o appComponent em standalone, vai precisar corrigir erro de bootstrap no appModule
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
