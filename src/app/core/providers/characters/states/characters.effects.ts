@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { take, tap } from 'rxjs';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../../services/api.service';
 import {
   getCharacters,
   getCharactersErro,
@@ -13,7 +13,7 @@ import {
 } from './characters.actions';
 
 @Injectable()
-export class BuscarCepEffects {
+export class GetCharactersEffects {
   constructor(
     private actions$: Actions,
     private store: Store,
@@ -52,7 +52,7 @@ export class BuscarCepEffects {
         ofType(getCharactersFilterByName),
         tap((data: { name: string }) => {
           return this.apiService
-            .getListCharactersFilterByName(data.name)
+            .getListCharactersFilterByName(data.name).pipe(take(1))
             .subscribe({
               next: (response: any) => {
                 //TODO: criar função para transformar response em character

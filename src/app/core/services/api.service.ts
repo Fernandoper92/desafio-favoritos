@@ -12,6 +12,10 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.API_URL}/character`);
   }
 
+  getCharacterById(id: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.API_URL}/character/${id}`);
+  }
+
   getListCharactersFilterByName(name: string): Observable<any> {
     return this.httpClient.get<any>(`${this.API_URL}/character/?name=${name}`);
   }

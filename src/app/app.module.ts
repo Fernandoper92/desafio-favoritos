@@ -1,16 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HttpClientModule } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
+import { GetCharactersEffects } from './core/providers/characters/states/characters.effects';
 import {
   getCharactersKey,
   GetCharactersReducer,
-} from './core/providers/states/characters.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { BuscarCepEffects } from './core/providers/states/characters.effects';
+} from './core/providers/characters/states/characters.reducer';
+import { FavoritesEffects } from './core/providers/favorites/states/favorites.effects';
+import {
+  favoritesKey,
+  FavoritesReducer,
+} from './core/providers/favorites/states/favorites.reducer';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,9 +25,12 @@ import { BuscarCepEffects } from './core/providers/states/characters.effects';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot(GetCharactersReducer),
+    StoreModule.forRoot({}, {}),
     StoreModule.forFeature(getCharactersKey, GetCharactersReducer),
-    EffectsModule.forRoot(BuscarCepEffects),
+    StoreModule.forFeature(favoritesKey, FavoritesReducer),
+    EffectsModule.forRoot([GetCharactersEffects, FavoritesEffects]),
+    StoreDevtoolsModule.instrument({ logOnly: false }),
+    HeaderComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

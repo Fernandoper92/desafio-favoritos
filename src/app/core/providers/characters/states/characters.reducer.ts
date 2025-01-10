@@ -17,7 +17,7 @@ export interface GetCharactersState {
   errorFilter: string;
 }
 
-export const getCharactersKey = 'Get Characters';
+export const getCharactersKey = 'characters';
 
 export const initialState: GetCharactersState = {
   isLoading: false,
