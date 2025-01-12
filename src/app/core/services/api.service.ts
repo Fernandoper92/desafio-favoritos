@@ -6,7 +6,7 @@ import { CharacterResponse } from '../interfaces/api-response/character-response
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private API_URL = '/api/';
+  private API_URL = 'https://rickandmortyapi.com/api/';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -21,8 +21,8 @@ export class ApiService {
   }
 
   getListCharactersFilterByName(name: string): Observable<ApiResponse> {
-    return this.httpClient
-      .get<ApiResponse>(`${this.API_URL}/character/?name=${name}`)
-      .pipe(timeout(100));
+    return this.httpClient.get<ApiResponse>(
+      `${this.API_URL}/character/?name=${name}`
+    ).pipe(timeout(100));
   }
 }
