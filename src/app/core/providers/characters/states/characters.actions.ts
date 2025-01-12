@@ -13,6 +13,11 @@ export const getCharactersSuccess = createAction(
   props<{ characters: Character[] }>()
 );
 
+export const updateCharacter = createAction(
+  '[Get Characters] Update Character',
+  props<{ id: number; characterUpdated: Character }>()
+);
+
 export const getCharactersErro = createAction(
   '[Get Characters] Get Characters Error',
   props<{ error: string }>()

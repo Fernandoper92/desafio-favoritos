@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetCharactersFacade } from './core/providers/characters/states/characters.facade';
+import { CharactersFacade } from './core/providers/characters/states/characters.facade';
 import { FavoritesFacade } from './core/providers/favorites/states/favorites.facade';
 
 @Component({
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   favoritesCounter: number = 0;
 
   constructor(
-    private getCharactersFacade: GetCharactersFacade,
+    private getCharactersFacade: CharactersFacade,
     private favoritesFacade: FavoritesFacade
   ) {}
 

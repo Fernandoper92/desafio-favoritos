@@ -5,14 +5,13 @@ import {
   getCharacters,
   getCharactersErro,
   getCharactersSuccess,
+  updateCharacter,
 } from './characters.actions';
 
 export interface GetCharactersState {
   isLoading: boolean;
   characters: Character[];
-  charactersFilter: Character[];
   error: string;
-  errorFilter: string;
 }
 
 export const getCharactersKey = 'characters';
@@ -20,9 +19,7 @@ export const getCharactersKey = 'characters';
 export const initialState: GetCharactersState = {
   isLoading: false,
   characters: [],
-  charactersFilter: [],
   error: '',
-  errorFilter: '',
 };
 
 export const GetCharactersReducer: ActionReducer<GetCharactersState, Action> =
@@ -43,6 +40,13 @@ export const GetCharactersReducer: ActionReducer<GetCharactersState, Action> =
       characters,
       isLoading: false,
       error: '',
+    })),
+
+    on(updateCharacter, (state, { id, characterUpdated }) => ({
+      ...state,
+      characters: state.characters.map((character) =>
+        character.id === id ? { ...character, ...characterUpdated } : character
+      ),
     })),
 
     on(getCharactersErro, (state, { error }) => ({

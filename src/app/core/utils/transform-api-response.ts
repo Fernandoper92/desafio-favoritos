@@ -1,5 +1,5 @@
-import { CharacterResponse } from './interfaces/api-response/character-response';
-import { Character } from './interfaces/character';
+import { CharacterResponse } from '../interfaces/api-response/character-response';
+import { Character } from '../interfaces/character';
 
 export function transformCharactersResponse(
   characters: CharacterResponse[],

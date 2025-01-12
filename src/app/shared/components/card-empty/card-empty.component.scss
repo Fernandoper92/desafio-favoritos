@@ -1,0 +1,27 @@
+@import "../../scss/variables.scss";
+
+:host {
+  display: block;
+}
+
+.card-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  @include content-dimension;
+
+  h2,
+  h3 {
+    line-height: 1;
+  }
+
+  h2 {
+    color: $white-200;
+  }
+
+  h3 {
+    color: $gray-200;
+  }
+}

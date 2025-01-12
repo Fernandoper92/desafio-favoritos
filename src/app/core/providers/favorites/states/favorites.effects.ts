@@ -12,7 +12,7 @@ import {
 } from 'rxjs';
 import { CharacterResponse } from 'src/app/core/interfaces/api-response/character-response';
 import { Character } from 'src/app/core/interfaces/character';
-import { transformCharactersResponse } from 'src/app/core/transform-api-response';
+import { transformCharactersResponse } from 'src/app/core/utils/transform-api-response';
 import { ApiService } from '../../../services/api.service';
 import {
   getFavorites,
@@ -51,12 +51,13 @@ export class FavoritesEffects {
         return forkJoin(requests$).pipe(
           map((responses: CharacterResponse[]) => {
             responses = responses.filter((response) => response !== null);
-            const characters: Character[] = transformCharactersResponse(
+            let favorites: Character[] = transformCharactersResponse(
               responses,
               this.listFavoritesIds
             );
-            console.log(characters);
-            return getFavoritesSuccess({ listFavorites: characters });
+            console.log(favorites);
+            favorites = favorites.sort((a, b) => a.id - b.id);
+            return getFavoritesSuccess({ favorites });
           })
         );
       })

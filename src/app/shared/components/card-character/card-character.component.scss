@@ -1,0 +1,56 @@
+@import "../../scss/variables.scss";
+
+:host {
+  display: block;
+}
+
+.card-character {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: auto;
+  height: auto;
+  @include item-dimension;
+
+  &__text {
+    padding: 12px;
+  }
+
+  i {
+    font-size: $icon-size;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  h2,
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  h2 {
+    font-family: Creepster, sans-serif;
+    font-weight: 100;
+    color: $white-200;
+  }
+
+  h3 {
+    color: $gray-200;
+  }
+
+  p {
+    font-size: $font-size-input;
+    color: $gray-200;
+  }
+}

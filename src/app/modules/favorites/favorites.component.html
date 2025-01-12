@@ -1,1 +1,31 @@
-<p>favorites works!</p>,
+<!-- TODO: componentizar melhor esse componente -->
+<!-- TODO: validar o scroll no componente ao invés de manter no body -->
+<div class="favorites favorites__container">
+  <div class="favorites__header">
+    <h1 class="favorites__header__title creep-title">Favoritos</h1>
+  </div>
+  <section
+    class="favorites__section"
+    *ngIf="favorites.length > 0; else noCharacters"
+  >
+    <div class="favorites__list">
+      <app-card-character
+        *ngFor="let character of this.favorites; let i = index"
+        [character]="character"
+        (toggleFavorite)="removeFavorite(character)"
+      ></app-card-character>
+    </div>
+  </section>
+  <ng-template #noCharacters>
+    <section class="favorites__section">
+      <app-card-empty
+        title="Parece que você ainda não tem favoritos"
+        [subtitle]="
+          (error$ | async) ||
+          'Volte à página inicial e escolha os melhores para você.'
+        "
+        button="Voltar ao início"
+      ></app-card-empty>
+    </section>
+  </ng-template>
+</div>

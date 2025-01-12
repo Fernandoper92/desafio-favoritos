@@ -5,14 +5,9 @@ import { favoritesKey, FavoritesState } from './favorites.reducer';
 export const selectFavorites =
   createFeatureSelector<FavoritesState>(favoritesKey);
 
-export const selectIsLoading = createSelector(
-  selectFavorites,
-  (state: FavoritesState): boolean => state.isLoading
-);
-
 export const selectListFavorites = createSelector(
   selectFavorites,
-  (state: FavoritesState): Character[] => state.listFavorites
+  (state: FavoritesState): Character[] => state.favorites
 );
 
 export const selectError = createSelector(

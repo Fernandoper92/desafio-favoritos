@@ -1,0 +1,18 @@
+@import "../../scss/variables.scss";
+
+:host {
+  display: block;
+  height: fit-content;
+  width: fit-content;
+  // @include full-dimension;
+}
+
+.border-box {
+  background-color: $black-200;
+  border-radius: 12px;
+  border: $border;
+  overflow: hidden;
+  height: fit-content;
+  width: fit-content;
+  // @include full-dimension;
+}

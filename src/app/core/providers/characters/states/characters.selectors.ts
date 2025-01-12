@@ -5,11 +5,6 @@ import { getCharactersKey, GetCharactersState } from './characters.reducer';
 export const selectGetCharacters =
   createFeatureSelector<GetCharactersState>(getCharactersKey);
 
-export const selectIsLoading = createSelector(
-  selectGetCharacters,
-  (state: GetCharactersState): boolean => state.isLoading
-);
-
 export const selectCharacters = createSelector(
   selectGetCharacters,
   (state: GetCharactersState): Character[] => state.characters

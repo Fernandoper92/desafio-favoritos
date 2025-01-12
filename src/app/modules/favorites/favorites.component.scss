@@ -1,3 +1,65 @@
+@import "../../shared/scss/variables.scss";
+
 :host {
-  display: block;
+  display: flex;
+  min-height: 89vh;
+  justify-content: center;
+  align-items: center;
+  background-color: $black-100;
+}
+
+.favorites {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    @include full-dimension;
+
+    &__title {
+      @include creep-title;
+    }
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+    height: 100%;
+    max-width: 730px;
+    min-width: 300px;
+  }
+
+  &__section {
+    @include content-dimension;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 24px;
+    height: 100%;
+
+    overflow: auto;
+    scrollbar-width: none; /* Para navegadores baseados em Firefox */
+    -ms-overflow-style: none; /* Para IE e Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* Oculta a barra de rolagem nos navegadores baseados em Webkit */
+    }
+
+    @media (max-width: 600px) {
+      justify-content: center;
+    }
+  }
 }

@@ -4,11 +4,12 @@ import {
   getFavorites,
   getFavoritesErro,
   getFavoritesSuccess,
+  updateFavorite,
 } from './favorites.actions';
 
 export interface FavoritesState {
   isLoading: boolean;
-  listFavorites: Character[];
+  favorites: Character[];
   error: string;
 }
 
@@ -16,7 +17,7 @@ export const favoritesKey = 'favorites';
 
 export const initialState: FavoritesState = {
   isLoading: false,
-  listFavorites: [],
+  favorites: [],
   error: '',
 };
 
@@ -29,16 +30,25 @@ export const FavoritesReducer: ActionReducer<FavoritesState, Action> =
       error: '',
     })),
 
-    on(getFavoritesSuccess, (state, { listFavorites }) => ({
+    on(getFavoritesSuccess, (state, { favorites }) => ({
       ...state,
-      listFavorites: listFavorites,
+      favorites: favorites,
       isLoading: false,
       error: '',
     })),
 
+    on(updateFavorite, (state, { id, favoriteUpdated }) => ({
+      ...state,
+      favorites: state.favorites
+        .map((favorite) =>
+          favorite.id === id ? { ...favorite, ...favoriteUpdated } : favorite
+        )
+        .sort((a, b) => a.id - b.id),
+    })),
+
     on(getFavoritesErro, (state, { error }) => ({
       ...state,
-      listFavorites: [],
+      favorites: [],
       isLoading: false,
       error,
     }))

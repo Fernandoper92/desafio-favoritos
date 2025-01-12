@@ -7,17 +7,14 @@ import {
   clearState,
   getCharacters,
   getCharactersSuccess,
+  updateCharacter,
 } from './characters.actions';
-import {
-  selectCharacters,
-  selectError,
-  selectIsLoading,
-} from './characters.selectors';
+import { selectCharacters, selectError } from './characters.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
-export class GetCharactersFacade {
+export class CharactersFacade {
   constructor(private store: Store) {}
 
   clearState() {
@@ -32,8 +29,10 @@ export class GetCharactersFacade {
     this.store.dispatch(getCharactersSuccess({ characters }));
   }
 
-  selectIsLoading$(): Observable<boolean> {
-    return this.store.select(selectIsLoading).pipe(distinctUntilChanged());
+  updateCharacter(characterUpdated: Character) {
+    this.store.dispatch(
+      updateCharacter({ id: characterUpdated.id, characterUpdated })
+    );
   }
 
   selectCharacters$(): Observable<Character[]> {

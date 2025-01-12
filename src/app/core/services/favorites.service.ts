@@ -6,15 +6,15 @@ export class FavoritesService {
 
   constructor() {}
 
-  getListFavoriteId(): number[] {
+  getFavoritesIds(): number[] {
     let listFavoritesId: number[] = [];
     const storageItem = localStorage.getItem(this.LOCAL_STORAGE_KEY);
     if (storageItem) listFavoritesId = JSON.parse(storageItem);
     return listFavoritesId.length ? listFavoritesId : [];
   }
 
-  togglefavoriteId(id: number) {
-    let listFavoriteId: number[] = this.getListFavoriteId();
+  updateFavoritesIds(id: number) {
+    let listFavoriteId: number[] = this.getFavoritesIds();
     const index = listFavoriteId.indexOf(id);
     if (index === -1) {
       listFavoriteId.push(id);

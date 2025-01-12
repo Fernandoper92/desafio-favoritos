@@ -1,59 +1,61 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { Character } from 'src/app/core/interfaces/character';
-import { GetCharactersFacade } from 'src/app/core/providers/characters/states/characters.facade';
+import { CharactersFacade } from 'src/app/core/providers/characters/states/characters.facade';
 import { FavoritesFacade } from 'src/app/core/providers/favorites/states/favorites.facade';
-import { CardComponent } from 'src/app/shared/components/card/card.component';
+import { CardCharacterComponent } from 'src/app/shared/components/card-character/card-character.component';
+import { CardEmptyComponent } from 'src/app/shared/components/card-empty/card-empty.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CardComponent, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CardCharacterComponent,
+    CardEmptyComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnDestroy {
   destroyed$: Subject<void> = new Subject();
-  characters: Character[] = [];
-  isLoading$: Observable<boolean>;
-  error: Observable<string>;
-
+  error$: Observable<string> = new Observable();
   input: FormControl = new FormControl('');
+  characters: Character[] = [];
 
   constructor(
-    private getCharacterFacade: GetCharactersFacade,
+    private charactersFacade: CharactersFacade,
     private favoritesFacade: FavoritesFacade
   ) {
-    this.getCharacterFacade
+    this.charactersFacade
       .selectCharacters$()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((characters) => {
+        console.log(characters);
         this.characters = characters;
       });
-    this.isLoading$ = this.getCharacterFacade
-      .selectIsLoading$()
-      .pipe(takeUntil(this.destroyed$));
-    this.error = this.getCharacterFacade
+    this.error$ = this.charactersFacade
       .selectError$()
       .pipe(takeUntil(this.destroyed$));
   }
 
   onInputChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
-    this.getCharacterFacade.getCharacters(value);
+    this.charactersFacade.getCharacters(value);
+  }
+  toggleFavorite(character: Character) {
+    const characterUpdated = { ...character, favorite: !character.favorite };
+    this.favoritesFacade.updateFavoritesIds(character.id);
+    this.favoritesFacade.updateFavorites(characterUpdated);
+    this.charactersFacade.updateCharacter(characterUpdated);
   }
 
-  toggleFavorite(index: number, id: number) {
-    this.favoritesFacade.togglefavoriteId(id);
-    this.characters = this.characters.map((character, i) => {
-      if (i === index) {
-        this.favoritesFacade.toggleFavorite(character);
-        return { ...character, favorite: !character.favorite };
-      } else {
-        return character;
-      }
-    });
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }

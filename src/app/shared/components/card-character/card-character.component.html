@@ -1,0 +1,15 @@
+<app-border-box>
+  <div class="card-character">
+    <i
+      class="fa-heart"
+      [ngClass]="character.favorite ? 'fa-solid' : 'fa-regular'"
+      (click)="toggleFavorite.emit()"
+    ></i>
+    <img src="{{ character.image }}" alt="Character photo" />
+    <div class="card-character__text">
+      <h2>{{ character.name }}</h2>
+      <p>{{ character.species }}</p>
+      <p>{{ character.origin }}</p>
+    </div>
+  </div>
+</app-border-box>

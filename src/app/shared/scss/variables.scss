@@ -20,9 +20,29 @@ $font-size-text: 14px;
 
 $icon-size: 20px;
 
+$border: 1px solid $gray-100;
+
 @mixin full-dimension {
   height: 100%;
   width: 100%;
+}
+
+@mixin content-dimension {
+  width: 730px;
+  height: 60vh;
+
+  @media (max-width: 800px) {
+    width: 480px;
+  }
+
+  @media (max-width: 600px) {
+    width: 260px;
+  }
+}
+
+@mixin item-dimension {
+  min-width: 192px;
+  max-width: 224px;
 }
 
 @mixin creep-title {
