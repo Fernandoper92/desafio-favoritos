@@ -23,6 +23,6 @@ export class ApiService {
   getListCharactersFilterByName(name: string): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(
       `${this.API_URL}/character/?name=${name}`
-    ).pipe(timeout(120));
+    );
   }
 }
