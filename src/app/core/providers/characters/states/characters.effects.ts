@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { take, tap } from 'rxjs';
+import { debounce, debounceTime, delay, take, tap } from 'rxjs';
 import { ApiResponse } from 'src/app/core/interfaces/api-response/api-response';
 import { Character } from 'src/app/core/interfaces/character';
 import { transformCharactersResponse } from 'src/app/core/utils/transform-api-response';

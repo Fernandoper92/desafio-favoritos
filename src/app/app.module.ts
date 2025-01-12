@@ -18,6 +18,7 @@ import {
   FavoritesReducer,
 } from './core/providers/favorites/states/favorites.reducer';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
     EffectsModule.forRoot([GetCharactersEffects, FavoritesEffects]),
     StoreDevtoolsModule.instrument({ logOnly: false }),
     HeaderComponent,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

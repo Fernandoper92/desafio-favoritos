@@ -62,4 +62,15 @@
       justify-content: center;
     }
   }
+
+  &__loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include full-dimension;
+
+    ::ng-deep mat-progress-spinner circle {
+      stroke: $white-100;  // Altere para a cor que preferir
+    }
+  }
 }

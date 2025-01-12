@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  MatProgressSpinner,
+  MatProgressSpinnerModule,
+} from '@angular/material/progress-spinner';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { Character } from 'src/app/core/interfaces/character';
 import { CharactersFacade } from 'src/app/core/providers/characters/states/characters.facade';
@@ -11,10 +15,12 @@ import { CardEmptyComponent } from 'src/app/shared/components/card-empty/card-em
 @Component({
   selector: 'app-home',
   standalone: true,
+  providers: [MatProgressSpinner],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
     CardCharacterComponent,
     CardEmptyComponent,
   ],
@@ -23,6 +29,7 @@ import { CardEmptyComponent } from 'src/app/shared/components/card-empty/card-em
 })
 export class HomeComponent implements OnDestroy {
   destroyed$: Subject<void> = new Subject();
+  isLoading$: Observable<boolean> = new Observable();
   error$: Observable<string> = new Observable();
   input: FormControl = new FormControl('');
   characters: Character[] = [];
@@ -39,6 +46,9 @@ export class HomeComponent implements OnDestroy {
         console.log(characters);
         this.characters = characters;
       });
+    this.isLoading$ = this.charactersFacade
+      .selectIsLoading$()
+      .pipe(takeUntil(this.destroyed$));
     this.error$ = this.charactersFacade
       .selectError$()
       .pipe(takeUntil(this.destroyed$));

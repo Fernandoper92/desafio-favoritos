@@ -9,7 +9,11 @@ import {
   getCharactersSuccess,
   updateCharacter,
 } from './characters.actions';
-import { selectCharacters, selectError } from './characters.selectors';
+import {
+  selectCharacters,
+  selectError,
+  selectIsLoading,
+} from './characters.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +37,10 @@ export class CharactersFacade {
     this.store.dispatch(
       updateCharacter({ id: characterUpdated.id, characterUpdated })
     );
+  }
+
+  selectIsLoading$(): Observable<boolean> {
+    return this.store.select(selectIsLoading).pipe(distinctUntilChanged());
   }
 
   selectCharacters$(): Observable<Character[]> {

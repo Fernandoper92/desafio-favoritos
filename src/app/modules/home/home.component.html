@@ -7,7 +7,7 @@
   </div>
   <section
     class="home__section"
-    *ngIf="characters.length > 0; else noCharacters"
+    *ngIf="!(isLoading$ | async) && characters.length > 0"
   >
     <div class="home__list">
       <app-card-character
@@ -17,12 +17,15 @@
       ></app-card-character>
     </div>
   </section>
-  <ng-template #noCharacters>
-    <section class="home__section">
-      <app-card-empty
-        title="Nada foi encontrado"
-        [subtitle]="(error$ | async) || 'Tente realizar uma nova busca.'"
-      ></app-card-empty>
-    </section>
-  </ng-template>
+  <section class="home__section" *ngIf="!(isLoading$ | async) && !characters.length">
+    <app-card-empty
+      title="Nada foi encontrado"
+      subtitle="Tente realizar uma nova busca."
+    ></app-card-empty>
+  </section>
+  <section class="home__section" *ngIf="(isLoading$ | async)">
+    <div class="home__loader">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+  </section>
 </div>

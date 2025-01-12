@@ -20,9 +20,7 @@
     <section class="favorites__section">
       <app-card-empty
         title="Parece que você ainda não tem favoritos"
-        [subtitle]="
-          (error$ | async) ||
-          'Volte à página inicial e escolha os melhores para você.'
+        subtitle="Volte à página inicial e escolha os melhores para você.
         "
         button="Voltar ao início"
       ></app-card-empty>
