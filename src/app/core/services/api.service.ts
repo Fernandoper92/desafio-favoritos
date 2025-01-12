@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiResponse } from '../interfaces/api-response/api-response';
+import { CharacterResponse } from '../interfaces/api-response/character-response';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -8,15 +10,19 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getListCharacters(): Observable<any> {
-    return this.httpClient.get<any>(`${this.API_URL}/character`);
+  getListCharacters(): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(`${this.API_URL}/character`);
   }
 
-  getCharacterById(id: string): Observable<any> {
-    return this.httpClient.get<any>(`${this.API_URL}/character/${id}`);
+  getCharacterById(id: number): Observable<CharacterResponse> {
+    return this.httpClient.get<CharacterResponse>(
+      `${this.API_URL}/character/${id}`
+    );
   }
 
-  getListCharactersFilterByName(name: string): Observable<any> {
-    return this.httpClient.get<any>(`${this.API_URL}/character/?name=${name}`);
+  getListCharactersFilterByName(name: string): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      `${this.API_URL}/character/?name=${name}`
+    );
   }
 }

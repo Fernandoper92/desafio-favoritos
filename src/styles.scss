@@ -4,11 +4,30 @@
   font-family: Poppins, sans-serif;
 }
 
-p {
+p,
+h1,
+h2,
+h3 {
   margin: 0;
+}
+
+p {
   font-size: $font-size-text;
+}
+
+h1 {
+  font-size: $font-size-title;
+}
+
+h2 {
+  font-size: $font-size-title-card;
+}
+
+h3 {
+  font-size: $font-size-subtitle;
 }
 
 body {
   margin: 0;
+  overflow: hidden;
 }

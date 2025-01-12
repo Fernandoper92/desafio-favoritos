@@ -1,0 +1,12 @@
+@import "../../scss/variables.scss";
+
+:host {
+  display: block;
+}
+
+.card {
+  background-color: $black-200;
+  border-radius: 12px;
+  border: 1px solid $gray-100;
+  overflow: hidden;
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IconTextComponent } from '../icon-text/icon-text.component';
 
@@ -10,5 +10,5 @@ import { IconTextComponent } from '../icon-text/icon-text.component';
   styleUrls: ['./nav-button.component.scss'],
 })
 export class NavButtonComponent {
-  favoritesCounter = 0
+  @Input() favoritesCounter = 0;
 }

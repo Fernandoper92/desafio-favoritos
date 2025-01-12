@@ -25,10 +25,10 @@
     background-color: $black-200;
     transition: background-color 100ms ease, font-style 100ms ease;
     font-weight: bold;
-    padding: 4px 16px;
+    padding: 8px 16px;
 
     &:hover {
-      background-color: $white-100;
+      background-color: $white-300;
       color: $black-200;
     }
 

@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Character } from 'src/app/core/interfaces/character';
 import { favoritesKey, FavoritesState } from './favorites.reducer';
 
 export const selectFavorites =
@@ -11,7 +12,7 @@ export const selectIsLoading = createSelector(
 
 export const selectListFavorites = createSelector(
   selectFavorites,
-  (state: FavoritesState): any[] => state.listFavorites
+  (state: FavoritesState): Character[] => state.listFavorites
 );
 
 export const selectError = createSelector(

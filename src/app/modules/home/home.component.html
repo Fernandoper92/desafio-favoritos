@@ -1,1 +1,35 @@
-<p>home works!</p>,
+<!-- TODO: componentizar melhor esse componente -->
+<!-- TODO: corrigir positionamento dos cards -->
+
+<div class="home home__container">
+  <div class="home__header">
+    <h1 class="home__header__title creep-title">Início</h1>
+    <input #inputElement type="text" (input)="onInputChange($event)" />
+  </div>
+  <section class="home__section">
+    <div class="home__list">
+      <app-card *ngFor="let character of this.characters; let i = index">
+        <div class="home__list__item">
+          <i
+            class="fa-heart"
+            [ngClass]="character.favorite ? 'fa-solid' : 'fa-regular'"
+            (click)="toggleFavorite(i, character.id)"
+          ></i>
+          <img src="{{ character.image }}" alt="" />
+          <div class="home__list__item__text">
+            <h2>{{ character.name }}</h2>
+            <p>{{ character.species }}</p>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </section>
+  <section class="home__section" hidden>
+    <app-card>
+      <div class="home__box">
+        <h2>Nada foi encontrado</h2>
+        <h3>Tente realizar uma nova busca.</h3>
+      </div>
+    </app-card>
+  </section>
+</div>

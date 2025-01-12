@@ -1,0 +1,100 @@
+@import "../../shared/scss/variables.scss";
+
+:host {
+  display: flex;
+  min-height: 89vh;
+  justify-content: center;
+  align-items: center;
+  background-color: $black-100;
+}
+
+.home {
+  h2 {
+    color: $white-200;
+  }
+
+  h3 {
+    color: $gray-200;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+
+    &__title {
+      @include creep-title;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 48px;
+    margin: 48px 0;
+    max-width: 55vw;
+    @include full-dimension;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 24px;
+    height: 100vh;
+    overflow: auto;
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      width: auto;
+      height: auto;
+      min-width: 192px;
+      max-width: 224px;
+
+      &__text {
+        padding: 12px;
+      }
+
+      i {
+        font-size: $icon-size;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      img {
+        width: -webkit-fill-available;
+      }
+
+      h2 {
+        font-family: Creepster, sans-serif;
+        font-weight: 100;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      p {
+        font-size: $font-size-input;
+        color: $gray-200;
+      }
+    }
+  }
+
+  &__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 55vh;
+  }
+}

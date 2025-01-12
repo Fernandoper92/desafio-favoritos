@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Character } from 'src/app/core/interfaces/character';
 import { getCharactersKey, GetCharactersState } from './characters.reducer';
 
 export const selectGetCharacters =
@@ -11,20 +12,10 @@ export const selectIsLoading = createSelector(
 
 export const selectCharacters = createSelector(
   selectGetCharacters,
-  (state: GetCharactersState): any[] => state.characters
+  (state: GetCharactersState): Character[] => state.characters
 );
 
 export const selectError = createSelector(
   selectGetCharacters,
   (state: GetCharactersState): string => state.error
-);
-
-export const selectCharactersFilter = createSelector(
-  selectGetCharacters,
-  (state: GetCharactersState): any[] => state.charactersFilter
-);
-
-export const selectErroFilter = createSelector(
-  selectGetCharacters,
-  (state: GetCharactersState): string => state.errorFilter
 );

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GetCharactersFacade } from './core/providers/characters/states/characters.facade';
 import { FavoritesFacade } from './core/providers/favorites/states/favorites.facade';
-import { FavoritesService } from './core/services/favorites.service';
 
 @Component({
   selector: 'app-root',
@@ -11,28 +10,18 @@ import { FavoritesService } from './core/services/favorites.service';
 })
 export class AppComponent implements OnInit {
   title = 'desafio-mottu-favoritos';
+  favoritesCounter: number = 0;
 
   constructor(
     private getCharactersFacade: GetCharactersFacade,
-    private favoritesFacade: FavoritesFacade,
-    private favoritesService: FavoritesService
+    private favoritesFacade: FavoritesFacade
   ) {}
 
   ngOnInit(): void {
-    this.getCharactersFacade.getCharacters();
-    this.getCharactersFacade
-      .selectCharacters$()
-      .subscribe((response) => console.log(response));
-
-    this.favoritesService.addFavoriteId('1');
+    this.getCharactersFacade.getCharacters('');
     this.favoritesFacade.getFavorites();
-    this.favoritesFacade
-      .selectFavorites$()
-      .subscribe((response) => console.log(response));
-
-    this.getCharactersFacade.getCharactersFilterByName('Morty');
-    this.getCharactersFacade
-      .selectCharactersFilter$()
-      .subscribe((response) => console.log(response));
+    this.favoritesFacade.selectFavorites$().subscribe((favorites) => {
+      this.favoritesCounter = favorites.length;
+    });
   }
 }

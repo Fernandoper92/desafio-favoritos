@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavButtonComponent } from '../nav-button/nav-button.component';
 
 @Component({
@@ -8,4 +8,6 @@ import { NavButtonComponent } from '../nav-button/nav-button.component';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  @Input() favoritesCounter = 0;
+}

@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { take, tap } from 'rxjs';
+import { ApiResponse } from 'src/app/core/interfaces/api-response/api-response';
+import { Character } from 'src/app/core/interfaces/character';
+import { transformCharactersResponse } from 'src/app/core/transform-api-response';
 import { ApiService } from '../../../services/api.service';
+import { FavoritesFacade } from '../../favorites/states/favorites.facade';
 import {
   getCharacters,
   getCharactersErro,
-  getCharactersFilterByName,
-  getCharactersFilterErro,
-  getCharactersFilterSuccess,
   getCharactersSuccess,
 } from './characters.actions';
 
@@ -17,54 +18,35 @@ export class GetCharactersEffects {
   constructor(
     private actions$: Actions,
     private store: Store,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private FavoritesFacade: FavoritesFacade
   ) {}
 
   getCharacters$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(getCharacters),
-        tap(() => {
-          return this.apiService
-            .getListCharacters()
-            .pipe(take(1))
-            .subscribe({
-              next: (response: any) => {
-                //TODO: criar função para transformar response em character
-                this.store.dispatch(
-                  getCharactersSuccess({ characters: response?.results })
-                );
-              },
-              error: (error: Error) => {
-                this.store.dispatch(
-                  getCharactersErro({ error: error.message })
-                );
-              },
-            });
-        })
-      ),
-    { dispatch: false }
-  );
-
-  getCharactersFilterByName$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(getCharactersFilterByName),
         tap((data: { name: string }) => {
           return this.apiService
-            .getListCharactersFilterByName(data.name).pipe(take(1))
+            .getListCharactersFilterByName(data.name)
+            .pipe(take(1))
             .subscribe({
-              next: (response: any) => {
-                //TODO: criar função para transformar response em character
+              next: (response: ApiResponse) => {
+                const listFavoritesId =
+                  this.FavoritesFacade.getListFavoritesId();
+                let characters: Character[] = transformCharactersResponse(
+                  response.results,
+                  listFavoritesId
+                );
                 this.store.dispatch(
-                  getCharactersFilterSuccess({
-                    charactersFilter: response?.results,
+                  getCharactersSuccess({
+                    characters,
                   })
                 );
               },
               error: (error: Error) => {
                 this.store.dispatch(
-                  getCharactersFilterErro({ errorFilter: error.message })
+                  getCharactersErro({ error: error.message })
                 );
               },
             });

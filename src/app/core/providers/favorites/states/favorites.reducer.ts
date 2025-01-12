@@ -1,4 +1,5 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
+import { Character } from 'src/app/core/interfaces/character';
 import {
   getFavorites,
   getFavoritesErro,
@@ -7,7 +8,7 @@ import {
 
 export interface FavoritesState {
   isLoading: boolean;
-  listFavorites: any[];
+  listFavorites: Character[];
   error: string;
 }
 

@@ -6,32 +6,24 @@ export class FavoritesService {
 
   constructor() {}
 
-  getListFavoriteId(): string[] {
-    let listFavoritesId: string[] = [];
+  getListFavoriteId(): number[] {
+    let listFavoritesId: number[] = [];
     const storageItem = localStorage.getItem(this.LOCAL_STORAGE_KEY);
     if (storageItem) listFavoritesId = JSON.parse(storageItem);
     return listFavoritesId.length ? listFavoritesId : [];
   }
 
-  addFavoriteId(id: string) {
-    let listFavoritesIds: string[] = this.getListFavoriteId();
-    
-    const index = listFavoritesIds.indexOf((id));
+  togglefavoriteId(id: number) {
+    let listFavoriteId: number[] = this.getListFavoriteId();
+    const index = listFavoriteId.indexOf(id);
     if (index === -1) {
-      listFavoritesIds.push(id);
+      listFavoriteId.push(id);
+    } else {
+      listFavoriteId.splice(index, 1);
     }
     localStorage.setItem(
       this.LOCAL_STORAGE_KEY,
-      JSON.stringify(listFavoritesIds)
+      JSON.stringify(listFavoriteId)
     );
-  }
-
-  removeFavoriteId(id: string) {
-    let favorites: string[] = this.getListFavoriteId();
-    const index = favorites.indexOf((id));
-    if (index > -1) {
-      favorites.splice(index, 1);
-    }
-    localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(favorites));
   }
 }

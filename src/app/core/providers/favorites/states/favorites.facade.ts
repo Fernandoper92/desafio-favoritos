@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, take } from 'rxjs/operators';
+import { Character } from 'src/app/core/interfaces/character';
 import { FavoritesService } from 'src/app/core/services/favorites.service';
-import { getFavorites } from './favorites.actions';
+import { getFavorites, getFavoritesSuccess } from './favorites.actions';
 import {
   selectError,
   selectIsLoading,
@@ -19,17 +20,43 @@ export class FavoritesFacade {
     private favoritesService: FavoritesService
   ) {}
 
+  togglefavoriteId(id: number) {
+    this.favoritesService.togglefavoriteId(id);
+  }
+
+  getListFavoritesId(): number[] {
+    return this.favoritesService.getListFavoriteId();
+  }
+
   getFavorites() {
-    const listFavoritesIds: string[] =
+    const listFavoritesIds: number[] =
       this.favoritesService.getListFavoriteId();
     this.store.dispatch(getFavorites({ listFavoritesIds }));
+  }
+
+  toggleFavorite(favoriteParam: Character) {
+    this.selectFavorites$()
+      .pipe(take(1))
+      .subscribe((favorites: Character[]) => {
+        console.log('favorites', favorites);
+        console.log('favoriteParam', favoriteParam);
+        const ids = favorites.map((favorite) => favorite.id);
+        if (ids.includes(favoriteParam.id)) {
+          favorites = favorites.filter(
+            (favorite) => favorite.id !== favoriteParam.id
+          );
+        } else {
+          favorites = [...favorites, favoriteParam];
+        }
+        this.store.dispatch(getFavoritesSuccess({ listFavorites: favorites }));
+      });
   }
 
   selectIsLoading$(): Observable<boolean> {
     return this.store.select(selectIsLoading).pipe(distinctUntilChanged());
   }
 
-  selectFavorites$(): Observable<any> {
+  selectFavorites$(): Observable<Character[]> {
     return this.store.select(selectListFavorites).pipe(distinctUntilChanged());
   }
 
