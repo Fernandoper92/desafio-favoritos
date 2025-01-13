@@ -16,6 +16,7 @@ import { CharactersFacade } from 'src/app/core/providers/characters/states/chara
 import { FavoritesFacade } from 'src/app/core/providers/favorites/states/favorites.facade';
 import { CardCharacterComponent } from 'src/app/shared/components/card-character/card-character.component';
 import { CardEmptyComponent } from 'src/app/shared/components/card-empty/card-empty.component';
+import { InputComponent } from 'src/app/shared/forms/input/input.component';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,7 @@ import { CardEmptyComponent } from 'src/app/shared/components/card-empty/card-em
     MatPaginatorModule,
     CardCharacterComponent,
     CardEmptyComponent,
+    InputComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -83,8 +85,7 @@ export class HomeComponent implements OnDestroy {
       });
   }
 
-  onInputChange(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
+  onInputChange(value: string) {
     this.inputSubject.next(value);
   }
   toggleFavorite(character: Character) {
@@ -95,7 +96,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   handlePageEvent(event: PageEvent) {
-    const nextPage = (event.pageIndex + 1 ).toString();
+    const nextPage = (event.pageIndex + 1).toString();
     this.pageInfo = { ...this.pageInfo, pageIndex: event.pageIndex };
     this.charactersFacade.getCharacters(this.input, nextPage);
   }

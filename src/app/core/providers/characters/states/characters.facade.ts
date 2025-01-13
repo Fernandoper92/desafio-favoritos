@@ -30,10 +30,6 @@ export class CharactersFacade {
     this.store.dispatch(getCharacters({ name, page }));
   }
 
-  // setCharacters(characters: Character[]) {
-  //   this.store.dispatch(getCharactersSuccess({ characters }));
-  // }
-
   updateCharacter(characterUpdated: Character) {
     this.store.dispatch(
       updateCharacter({ id: characterUpdated.id, characterUpdated })

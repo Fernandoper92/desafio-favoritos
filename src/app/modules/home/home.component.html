@@ -1,18 +1,18 @@
-<!-- TODO: componentizar melhor esse componente -->
-<!-- TODO: validar o scroll no componente ao invés de manter no body -->
-<div class="home home__container">
+<div
+  class="home home__container"
+  [ngClass]="{ 'gap-48': (isLoading$ | async) || characters.length === 0 }"
+>
   <div class="home__header">
     <h1 class="home__header__title creep-title">Início</h1>
-    <input
-      #inputElement
-      type="text"
-      [value]="input"
-      [(ngModel)]="input"
-      (input)="onInputChange($event)"
-    />
+    <app-input
+      id="input"
+      label="Pesquisar"
+      [(value)]="input"
+      (valueChange)="onInputChange($event)"
+    ></app-input>
   </div>
   <mat-paginator
-    *ngIf="characters.length > 0"
+    *ngIf="!(isLoading$ | async) && characters.length > 0"
     #paginator
     class="paginator"
     [length]="pageInfo.count"

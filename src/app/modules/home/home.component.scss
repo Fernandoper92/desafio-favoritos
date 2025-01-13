@@ -35,6 +35,10 @@
     height: 100%;
     max-width: 730px;
     min-width: 300px;
+
+    &.gap-48 {
+      gap: 48px;
+    }
   }
 
   &__section {
@@ -50,11 +54,11 @@
     height: 100%;
 
     overflow: auto;
-    scrollbar-width: none; /* Para navegadores baseados em Firefox */
-    -ms-overflow-style: none; /* Para IE e Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
     &::-webkit-scrollbar {
-      display: none; /* Oculta a barra de rolagem nos navegadores baseados em Webkit */
+      display: none;
     }
 
     @media (max-width: 600px) {
@@ -69,19 +73,20 @@
     @include full-dimension;
 
     ::ng-deep mat-progress-spinner circle {
-      stroke: $white-100; // Altere para a cor que preferir
+      stroke: $white-100;
     }
   }
 
   ::ng-deep mat-paginator {
-    background-color: transparent; // Remove a cor de fundo
+    background-color: transparent;
     color: $white-100;
     align-self: flex-end;
+    height: 48px;
   }
 
-  ::ng-deep .mat-mdc-paginator-container{
+  ::ng-deep .mat-mdc-paginator-container {
     padding: 0;
-  } 
+  }
 
   ::ng-deep .mat-mdc-paginator-icon {
     fill: $white-100;

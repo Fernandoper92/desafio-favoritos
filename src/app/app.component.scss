@@ -5,3 +5,15 @@
 .router-outlet {
   height: 89vh;
 }
+
+
+@media (max-width: 600px) {
+  .app-header {
+    height: 15vh;
+  }
+  
+  .router-outlet {
+    height: 85vh;
+  }
+  
+}

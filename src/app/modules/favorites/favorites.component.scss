@@ -51,11 +51,11 @@
     height: 100%;
 
     overflow: auto;
-    scrollbar-width: none; /* Para navegadores baseados em Firefox */
-    -ms-overflow-style: none; /* Para IE e Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
     &::-webkit-scrollbar {
-      display: none; /* Oculta a barra de rolagem nos navegadores baseados em Webkit */
+      display: none;
     }
 
     @media (max-width: 600px) {

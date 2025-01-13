@@ -1,11 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BorderBoxComponent } from '../border-box/border-box.component';
-import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-card-empty',
   standalone: true,
-  imports: [CommonModule,BorderBoxComponent],
+  imports: [CommonModule, BorderBoxComponent, ButtonComponent],
   templateUrl: './card-empty.component.html',
   styleUrls: ['./card-empty.component.scss'],
 })

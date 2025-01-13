@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { Character } from 'src/app/core/interfaces/character';
 import { CharactersFacade } from 'src/app/core/providers/characters/states/characters.facade';
@@ -15,6 +16,7 @@ import { CardEmptyComponent } from 'src/app/shared/components/card-empty/card-em
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
     CardCharacterComponent,
     CardEmptyComponent,
   ],
@@ -28,7 +30,8 @@ export class FavoritesComponent implements OnDestroy {
 
   constructor(
     private favoritesFacade: FavoritesFacade,
-    private characterFacade: CharactersFacade
+    private characterFacade: CharactersFacade,
+    private router: Router
   ) {
     this.favoritesFacade
       .selectFavorites$()
@@ -45,6 +48,10 @@ export class FavoritesComponent implements OnDestroy {
     this.favoritesFacade.updateFavoritesIds(character.id);
     this.favoritesFacade.updateFavorites(character);
     this.characterFacade.updateCharacter({ ...character, favorite: false });
+  }
+
+  navigate() {
+    this.router.navigate(['home']);
   }
 
   ngOnDestroy(): void {

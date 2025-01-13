@@ -2,6 +2,11 @@
   <div class="card-empty">
     <h2>{{ title }}</h2>
     <h3>{{ subtitle }}</h3>
-    <button *ngIf="button" (click)="btnClick.emit()">{{ button }}</button>
+    <!-- <button *ngIf="button" (click)="btnClick.emit()">{{ button }}</button> -->
+    <app-button
+      *ngIf="button"
+      [label]="button"
+      (click)="btnClick.emit()"
+    ></app-button>
   </div>
 </app-border-box>

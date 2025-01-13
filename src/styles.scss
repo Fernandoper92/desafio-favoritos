@@ -20,11 +20,18 @@ h1 {
 }
 
 h2 {
+  color: $white-200;
   font-size: $font-size-title-card;
 }
 
 h3 {
+  color: $gray-200;
   font-size: $font-size-subtitle;
+}
+
+h2,
+h3 {
+  line-height: 1;
 }
 
 body {

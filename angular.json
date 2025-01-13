@@ -55,10 +55,7 @@
               "namedChunks": true
             }
           },
-          "defaultConfiguration": "production",
-          "stylePreprocessorOptions": {
-            "includePaths": ["node_modules"]
-          }
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

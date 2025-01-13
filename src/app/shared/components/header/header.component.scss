@@ -17,5 +17,12 @@
       width: 114px;
       height: 64px;
     }
+
+    @media (max-width: 600px) {
+      justify-content: flex-start;
+      flex-direction: column;
+      height: 100%;
+      gap: 12px;
+    }
   }
 }

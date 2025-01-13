@@ -1,0 +1,10 @@
+<div class="animated-input">
+  <input
+    [type]="type"
+    [value]="value"
+    [(ngModel)]="value"
+    (input)="onInput($event)"
+    required
+  />
+  <label [class.active]="value">{{ label }}</label>
+</div>

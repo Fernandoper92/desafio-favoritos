@@ -1,5 +1,3 @@
-<!-- TODO: componentizar melhor esse componente -->
-<!-- TODO: validar o scroll no componente ao invés de manter no body -->
 <div class="favorites favorites__container">
   <div class="favorites__header">
     <h1 class="favorites__header__title creep-title">Favoritos</h1>
@@ -23,6 +21,7 @@
         subtitle="Volte à página inicial e escolha os melhores para você.
         "
         button="Voltar ao início"
+        (btnClick)="navigate()"
       ></app-card-empty>
     </section>
   </ng-template>
