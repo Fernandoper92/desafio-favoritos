@@ -3,8 +3,30 @@
 <div class="home home__container">
   <div class="home__header">
     <h1 class="home__header__title creep-title">Início</h1>
-    <input #inputElement type="text" (input)="onInputChange($event)" />
+    <input
+      #inputElement
+      type="text"
+      [value]="input"
+      [(ngModel)]="input"
+      (input)="onInputChange($event)"
+    />
   </div>
+  <mat-paginator
+    *ngIf="characters.length > 0"
+    #paginator
+    class="paginator"
+    [length]="pageInfo.count"
+    [pageSize]="pageInfo.pageSize"
+    [disabled]="false"
+    [hidePageSize]="false"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="[]"
+    [hidePageSize]="true"
+    [pageIndex]="pageInfo.pageIndex"
+    aria-label="Select page"
+    (page)="handlePageEvent($event)"
+  >
+  </mat-paginator>
   <section
     class="home__section"
     *ngIf="!(isLoading$ | async) && characters.length > 0"
@@ -17,13 +39,16 @@
       ></app-card-character>
     </div>
   </section>
-  <section class="home__section" *ngIf="!(isLoading$ | async) && !characters.length">
+  <section
+    class="home__section"
+    *ngIf="!(isLoading$ | async) && !characters.length"
+  >
     <app-card-empty
       title="Nada foi encontrado"
       subtitle="Tente realizar uma nova busca."
     ></app-card-empty>
   </section>
-  <section class="home__section" *ngIf="(isLoading$ | async)">
+  <section class="home__section" *ngIf="isLoading$ | async">
     <div class="home__loader">
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </div>

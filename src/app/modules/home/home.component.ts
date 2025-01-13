@@ -1,11 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
-  MatProgressSpinner,
-  MatProgressSpinnerModule,
-} from '@angular/material/progress-spinner';
-import { Observable, Subject, takeUntil } from 'rxjs';
+  debounceTime,
+  distinctUntilChanged,
+  Observable,
+  Subject,
+  takeUntil,
+} from 'rxjs';
+import { Info } from 'src/app/core/interfaces/api-response/info';
 import { Character } from 'src/app/core/interfaces/character';
 import { CharactersFacade } from 'src/app/core/providers/characters/states/characters.facade';
 import { FavoritesFacade } from 'src/app/core/providers/favorites/states/favorites.facade';
@@ -15,12 +20,13 @@ import { CardEmptyComponent } from 'src/app/shared/components/card-empty/card-em
 @Component({
   selector: 'app-home',
   standalone: true,
-  providers: [MatProgressSpinner],
+  providers: [],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     CardCharacterComponent,
     CardEmptyComponent,
   ],
@@ -28,11 +34,20 @@ import { CardEmptyComponent } from 'src/app/shared/components/card-empty/card-em
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnDestroy {
+  inputSubject = new Subject<string>();
   destroyed$: Subject<void> = new Subject();
   isLoading$: Observable<boolean> = new Observable();
   error$: Observable<string> = new Observable();
-  input: FormControl = new FormControl('');
+  input: string = '';
   characters: Character[] = [];
+  pageInfo: Info = {
+    count: 20,
+    pages: 0,
+    next: '',
+    prev: '',
+    pageSize: 20,
+    pageIndex: 0,
+  };
 
   constructor(
     private charactersFacade: CharactersFacade,
@@ -43,7 +58,6 @@ export class HomeComponent implements OnDestroy {
       .selectCharacters$()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((characters) => {
-        console.log(characters);
         this.characters = characters;
       });
     this.isLoading$ = this.charactersFacade
@@ -52,17 +66,38 @@ export class HomeComponent implements OnDestroy {
     this.error$ = this.charactersFacade
       .selectError$()
       .pipe(takeUntil(this.destroyed$));
+    this.inputSubject
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((value) => {
+        this.charactersFacade.getCharacters(value, '1');
+      });
+    this.charactersFacade
+      .selectPageInfo$()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((pageInfo) => {
+        this.pageInfo = {
+          ...pageInfo,
+          pageIndex: this.pageInfo.pageIndex,
+          pageSize: this.pageInfo.pageSize,
+        };
+      });
   }
 
   onInputChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
-    this.charactersFacade.getCharacters(value);
+    this.inputSubject.next(value);
   }
   toggleFavorite(character: Character) {
     const characterUpdated = { ...character, favorite: !character.favorite };
     this.favoritesFacade.updateFavoritesIds(character.id);
     this.favoritesFacade.updateFavorites(characterUpdated);
     this.charactersFacade.updateCharacter(characterUpdated);
+  }
+
+  handlePageEvent(event: PageEvent) {
+    const nextPage = (event.pageIndex + 1 ).toString();
+    this.pageInfo = { ...this.pageInfo, pageIndex: event.pageIndex };
+    this.charactersFacade.getCharacters(this.input, nextPage);
   }
 
   ngOnDestroy(): void {

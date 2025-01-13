@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { Info } from 'src/app/core/interfaces/api-response/info';
 import { Character } from 'src/app/core/interfaces/character';
 import {
   clearState,
   getCharacters,
-  getCharactersSuccess,
   updateCharacter,
 } from './characters.actions';
 import {
   selectCharacters,
   selectError,
   selectIsLoading,
+  selectPageInfo,
 } from './characters.selectors';
 
 @Injectable({
@@ -25,13 +26,13 @@ export class CharactersFacade {
     this.store.dispatch(clearState());
   }
 
-  getCharacters(name: string) {
-    this.store.dispatch(getCharacters({ name }));
+  getCharacters(name: string, page: string) {
+    this.store.dispatch(getCharacters({ name, page }));
   }
 
-  setCharacters(characters: Character[]) {
-    this.store.dispatch(getCharactersSuccess({ characters }));
-  }
+  // setCharacters(characters: Character[]) {
+  //   this.store.dispatch(getCharactersSuccess({ characters }));
+  // }
 
   updateCharacter(characterUpdated: Character) {
     this.store.dispatch(
@@ -45,6 +46,10 @@ export class CharactersFacade {
 
   selectCharacters$(): Observable<Character[]> {
     return this.store.select(selectCharacters).pipe(distinctUntilChanged());
+  }
+
+  selectPageInfo$(): Observable<Info> {
+    return this.store.select(selectPageInfo).pipe(distinctUntilChanged());
   }
 
   selectError$(): Observable<string> {

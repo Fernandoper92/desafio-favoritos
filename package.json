@@ -1,6 +1,6 @@
 {
-  "name": "desafio-mottu-favoritos",
-  "version": "0.0.3",
+  "name": "desafio-favoritos",
+  "version": "0.0.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

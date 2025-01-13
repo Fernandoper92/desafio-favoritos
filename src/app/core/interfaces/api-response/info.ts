@@ -3,4 +3,6 @@ export interface Info {
   pages: number;
   next: string | null;
   prev: string | null;
+  pageSize: number;
+  pageIndex: number;
 }

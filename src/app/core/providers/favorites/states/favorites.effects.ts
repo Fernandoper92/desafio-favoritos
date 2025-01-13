@@ -55,7 +55,6 @@ export class FavoritesEffects {
               responses,
               this.listFavoritesIds
             );
-            console.log(favorites);
             favorites = favorites.sort((a, b) => a.id - b.id);
             return getFavoritesSuccess({ favorites });
           })

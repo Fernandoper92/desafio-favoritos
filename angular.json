@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "desafio-mottu-favoritos": {
+    "desafio-favoritos": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/desafio-mottu-favoritos",
+            "outputPath": "dist/desafio-favoritos",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -55,16 +55,19 @@
               "namedChunks": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "production",
+          "stylePreprocessorOptions": {
+            "includePaths": ["node_modules"]
+          }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "desafio-mottu-favoritos:build:production"
+              "browserTarget": "desafio-favoritos:build:production"
             },
             "development": {
-              "browserTarget": "desafio-mottu-favoritos:build:development"
+              "browserTarget": "desafio-favoritos:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "desafio-mottu-favoritos:build"
+            "browserTarget": "desafio-favoritos:build"
           }
         },
         "test": {

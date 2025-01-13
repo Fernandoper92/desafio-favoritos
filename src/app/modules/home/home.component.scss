@@ -32,7 +32,6 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    gap: 48px;
     height: 100%;
     max-width: 730px;
     min-width: 300px;
@@ -70,7 +69,25 @@
     @include full-dimension;
 
     ::ng-deep mat-progress-spinner circle {
-      stroke: $white-100;  // Altere para a cor que preferir
+      stroke: $white-100; // Altere para a cor que preferir
     }
+  }
+
+  ::ng-deep mat-paginator {
+    background-color: transparent; // Remove a cor de fundo
+    color: $white-100;
+    align-self: flex-end;
+  }
+
+  ::ng-deep .mat-mdc-paginator-container{
+    padding: 0;
+  } 
+
+  ::ng-deep .mat-mdc-paginator-icon {
+    fill: $white-100;
+  }
+
+  ::ng-deep .mat-mdc-tooltip-disabled .mat-mdc-paginator-icon {
+    fill: $gray-100;
   }
 }

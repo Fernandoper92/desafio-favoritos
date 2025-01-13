@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, timeout } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ApiResponse } from '../interfaces/api-response/api-response';
 import { CharacterResponse } from '../interfaces/api-response/character-response';
 
@@ -20,9 +20,12 @@ export class ApiService {
     );
   }
 
-  getListCharactersFilterByName(name: string): Observable<ApiResponse> {
+  getListCharactersFilterByName(
+    name: string,
+    page: string
+  ): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(
-      `${this.API_URL}/character/?name=${name}`
+      `${this.API_URL}/character/?page=${page}&name=${name}`
     );
   }
 }

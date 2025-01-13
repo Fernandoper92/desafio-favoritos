@@ -34,7 +34,6 @@ export class FavoritesComponent implements OnDestroy {
       .selectFavorites$()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((favorites: Character[]) => {
-        console.log(favorites);
         this.favorites = favorites;
       });
     this.error$ = this.favoritesFacade

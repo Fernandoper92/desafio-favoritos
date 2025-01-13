@@ -9,7 +9,7 @@ import { FavoritesFacade } from './core/providers/favorites/states/favorites.fac
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'desafio-mottu-favoritos';
+  title = 'desafio-favoritos';
   favoritesCounter: number = 0;
 
   constructor(
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCharactersFacade.getCharacters('');
+    this.getCharactersFacade.getCharacters('', '1');
     this.favoritesFacade.getFavorites();
     this.favoritesFacade.selectFavorites$().subscribe((favorites) => {
       this.favoritesCounter = favorites.length;

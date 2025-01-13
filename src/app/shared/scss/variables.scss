@@ -28,7 +28,7 @@ $border: 1px solid $gray-100;
 }
 
 @mixin content-dimension {
-  width: 730px;
+  width: 726px;
   height: 60vh;
 
   @media (max-width: 800px) {
