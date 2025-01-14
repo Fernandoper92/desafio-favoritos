@@ -55,7 +55,6 @@ export class HomeComponent implements OnDestroy {
     private charactersFacade: CharactersFacade,
     private favoritesFacade: FavoritesFacade
   ) {
-    // TODO: entender pq toda vez que volto nessa rota ele bate no observable
     this.charactersFacade
       .selectCharacters$()
       .pipe(takeUntil(this.destroyed$))
